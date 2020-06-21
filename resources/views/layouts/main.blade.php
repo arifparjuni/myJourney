@@ -65,6 +65,10 @@
                 </div>
             </nav>
 
+            <div class="container mt-4">
+                @include('inc.message')
+            </div>
+
             @yield('container')
 
 

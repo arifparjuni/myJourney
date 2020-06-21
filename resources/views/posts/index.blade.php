@@ -6,7 +6,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <h2>The Blogs</h2>
-        
+        <a href="/posts/create" class="btn btn-primary my-4">Tambah Post</a>
         <div class="row">
             @if (count($posts) > 0)
                 @foreach ($posts as $post)
@@ -18,8 +18,8 @@
                             <p class="card-text text-muted">{{ $post->body }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                <a href="/posts/{{ $post->id }}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="/posts/{{ $post->id }}/edit" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
                                 <small class="text-muted">{{ $post->created_at }}</small>
                             </div>

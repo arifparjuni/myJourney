@@ -26,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        Post::create($request->all());
+        
+        return redirect('posts')->with('success', 'Post berhasil ditambahkan!');
     }
 
     /**
@@ -48,7 +55,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return $post;
+        return view('posts.show', compact('post', $post));
     }
 
     /**
