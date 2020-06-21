@@ -20,8 +20,12 @@
                                 <div class="btn-group">
                                 <a href="/posts/{{ $post->id }}" class="btn btn-sm btn-outline-secondary">View</a>
                                 <a href="/posts/{{ $post->id }}/edit" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right']) !!}
+                                {{Form::hidden('_method', 'DELETE')}}
+                                <button type="submit" class="btn btn-sm btn-outline-secondary ml-5" onclick="return confirm('Anda yakin mau hapus?');">Delete</button>
+                                {!! Form::close() !!}
                                 </div>
-                                <small class="text-muted">{{ $post->created_at }}</small>
+                                <small class="text-muted ml-2">{{ $post->created_at }}</small>
                             </div>
                         </div>
                     </div>

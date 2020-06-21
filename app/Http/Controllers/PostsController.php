@@ -66,7 +66,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post', $post));
     }
 
     /**
@@ -78,7 +78,18 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        Post::where('id', $post->id)
+                    ->update([
+                        'title' => $request->title,
+                        'body' => $request->body
+                    ]);
+
+        return redirect('posts')->with('success', 'Post berhasil diedit!');
     }
 
     /**
@@ -89,6 +100,8 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->id);
+
+        return redirect('posts')->with('success', 'Post berhasil dihapus!');
     }
 }
