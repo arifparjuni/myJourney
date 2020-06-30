@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public $fillable = ['title', 'body'];
+    public $fillable = ['title', 'body', 'cover_image'];
 }

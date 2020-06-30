@@ -39,10 +39,47 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
 
-        Post::create($request->all());
+        // handle the file upload 
+        if($request->hasFile('cover_image'))
+        {
+            // get filename with extensionn
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        } else
+        {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        // echo $filenameWithExt;
+        // echo '<br>';
+        // echo $filename;
+        // echo '<br>';
+        // echo $extension;
+        // echo '<br>';
+        // echo $fileNameToStore;
+        // echo '<br>';
+        // echo $path;
+        
+        // dd();
+
+        // Post::create($request->all());
+
+        $post = new Post;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->cover_image = $fileNameToStore;
+        $post->save();
         
         return redirect('posts')->with('success', 'Post berhasil ditambahkan!');
     }

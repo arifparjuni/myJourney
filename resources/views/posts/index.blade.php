@@ -12,7 +12,7 @@
                 @foreach ($posts as $post)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <img src="{{ url('img/1.jpg') }}" alt="" class="img-thumbnail">
+                        <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" class="img-thumbnail">
                         <div class="card-body">
                             <h5><a href="">{{ $post->title }}</a></h5>
                             <p class="card-text text-muted">{{ $post->body }}</p>
