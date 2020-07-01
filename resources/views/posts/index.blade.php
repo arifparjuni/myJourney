@@ -14,8 +14,8 @@
                     <div class="card mb-4 shadow-sm">
                         <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" class="img-thumbnail">
                         <div class="card-body">
-                            <h5><a href="">{{ $post->title }}</a></h5>
-                            <p class="card-text text-muted">{{ $post->body }}</p>
+                            <h5><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h5>
+                            <p class="card-text text-muted">{{ substr($post->body,0,200)." ..." }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 <a href="/posts/{{ $post->id }}" class="btn btn-sm btn-outline-secondary">View</a>

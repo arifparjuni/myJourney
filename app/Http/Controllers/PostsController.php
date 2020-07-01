@@ -117,14 +117,39 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
+        
+        // handle the file upload
+        if($request->hasFile('cover_image'))
+        {
+            // get filename with extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // get just filnename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // getjust ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // upload image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        }
+        
+        // Post::where('id', $post->id)
+        //             ->update([
+        //                 'title' => $request->title,
+        //                 'body' => $request->body
+        //             ]);
 
-        Post::where('id', $post->id)
-                    ->update([
-                        'title' => $request->title,
-                        'body' => $request->body
-                    ]);
+        $post = Post::find($post->id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        if($request->hasFile('cover_image')) {
+            $post->cover_image = $fileNameToStore;
+        }
+
+        $post->save();
 
         return redirect('posts')->with('success', 'Post berhasil diedit!');
     }
@@ -137,7 +162,15 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        Post::destroy($post->id);
+        // Post::destroy($post->id);
+
+        $post = Post::find($post->id);
+        if($post->cover_image != 'noimage.jpg')
+        {
+            Storage::delete('public/cover_images/'.$post->cover_image);
+        }
+
+        $post->delete();
 
         return redirect('posts')->with('success', 'Post berhasil dihapus!');
     }
