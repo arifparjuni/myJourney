@@ -14,6 +14,41 @@
                         </div>
                     @endif
 
+                    <a href="/posts/create" class="btn btn-primary my-3">Create Post</a>
+                    <h3>Your Blog Posts</h3>
+
+                    @if (count($posts) > 0)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($posts as $post)
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{ $post->title }}</td>
+                                            <td>
+                                                <a href="" class="btn btn-success">Edit</a>
+                                                <a href="" class="btn btn-danger">Hapus</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <p>You have no post!</p>
+                    @endif
+
                     You are logged in!
                 </div>
             </div>
