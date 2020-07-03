@@ -55,6 +55,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url('/login') }}">Login</a>
                         <a class="dropdown-item" href="{{ url('/register') }}">Sign Up</a>
+                        @if (!Auth::guest())
+                            <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
+                        @endif
                     </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">

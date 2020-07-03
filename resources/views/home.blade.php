@@ -30,16 +30,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($posts as $post)
                                         <tr>
+                                            @foreach ($posts as $post)
                                             <th scope="row">1</th>
                                             <td>{{ $post->title }}</td>
                                             <td>
-                                                <a href="" class="btn btn-success">Edit</a>
-                                                <a href="" class="btn btn-danger">Hapus</a>
+                                                <a href="/posts/{{ $post->id }}/edit" class="btn btn-success">Edit</a>
+                                                {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right']) !!}
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin mau hapus?');">Delete</button>
+                                                {!! Form::close() !!}
                                             </td>
+                                            @endforeach
                                         </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

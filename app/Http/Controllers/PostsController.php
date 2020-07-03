@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -104,6 +109,10 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+        if(auth()->user()->id !== $post->user_id ) {
+            return redirect('/posts')->with('error', 'Unauthrized page.');
+        }
+
         return view('posts.edit', compact('post', $post));
     }
 
@@ -166,6 +175,11 @@ class PostsController extends Controller
         // Post::destroy($post->id);
 
         $post = Post::find($post->id);
+
+        if(auth()->user()->id !== $post->user_id) {
+            return redirect('/posts')->with('error', 'Unauthrized page');
+        }
+        
         if($post->cover_image != 'noimage.jpg')
         {
             Storage::delete('public/cover_images/'.$post->cover_image);
