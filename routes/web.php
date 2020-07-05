@@ -25,3 +25,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostsController');
+
+Route::get('/artikel','ArtikelController@index');
+Route::get('/artikel/cari', 'ArtikelController@cari');
