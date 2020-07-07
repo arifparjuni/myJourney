@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -30,19 +30,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($posts as $post)
                                         <tr>
-                                            @foreach ($posts as $post)
-                                            <th scope="row">1</th>
+                                            <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $post->title }}</td>
                                             <td>
-                                                <a href="/posts/{{ $post->id }}/edit" class="btn btn-success">Edit</a>
+                                                <a href="/posts/{{ $post->id }}/edit" class="btn btn-success float-left mr-2">Edit</a>
                                                 {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right']) !!}
                                                 {{Form::hidden('_method', 'DELETE')}}
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Anda yakin mau hapus?');">Delete</button>
                                                 {!! Form::close() !!}
                                             </td>
-                                            @endforeach
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
