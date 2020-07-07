@@ -11,10 +11,10 @@ class ArtikelController extends Controller
     public function index()
     {
         // mengambil data dari table post
-        $post = DB::table('pegawai')->paginate(10);
+        $posts = DB::table('posts')->paginate(10);
 
         // mengirim data post ke view index
-        return view('cari.index', ['post' => $post]);
+        return view('posts.index', compact('posts', $posts));
     }
 
     public function cari(Request $request)
@@ -23,12 +23,12 @@ class ArtikelController extends Controller
         $cari = $request->cari;
 
         // mengambil data dari table post sesuai pencarian
-        $post = DB::table('post')
+        $posts = DB::table('posts')
         ->where('title','like',"%".$cari."%")
         ->paginate();
 
         // mengirim data pegawai ke view index
-        return view('cari.index', ['post' => 'post']);
+        return view('posts.index', compact('posts', $posts));
     }
 
 }

@@ -7,8 +7,7 @@
     <div class="container">
         <h2>The Blogs</h2>
         <div class="row">
-            @if (count($posts) > 0)
-                @foreach ($posts as $post)
+            @foreach($posts as $post)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" class="img-thumbnail">
@@ -35,8 +34,16 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            @endif
+            @endforeach
+        </div>
+
+        <br>
+        Halaman : {{ $posts->currentPage() }} <br/>
+        Jumlah Data : {{ $posts->total() }} <br/>
+        Data Per Halaman : {{ $posts->perPage() }} <br/>
+        
+        <div class="pagination justify-content-center">
+            {{ $posts->links() }}
         </div>
     </div>
 </div>
